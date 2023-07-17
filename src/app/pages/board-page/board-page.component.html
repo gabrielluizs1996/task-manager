@@ -11,7 +11,7 @@
     </button>
   </div>
   <div class="board-content">
-    <div class="example-container">
+    <div class="task-container">
       <span class="title pendente">Pendentes</span>
 
       <div
@@ -20,10 +20,10 @@
         id="todoList"
         [cdkDropListData]="tasks"
         [cdkDropListConnectedTo]="[doneList]"
-        class="example-list"
+        class="task-list"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="example-box" *ngFor="let item of pagedTasks" cdkDrag>
+        <div class="task-box" *ngFor="let item of pagedTasks" cdkDrag>
           <div class="task-title">
             <span>{{ item.titulo }}</span>
             <button mat-icon-button color="warn" (click)="deleteTask(item)">
@@ -41,7 +41,7 @@
       ></mat-paginator>
     </div>
 
-    <div class="example-container">
+    <div class="task-container">
       <span class="title concluida">Concluídas</span>
 
       <div
@@ -50,10 +50,10 @@
         #doneList="cdkDropList"
         [cdkDropListData]="done"
         [cdkDropListConnectedTo]="[todoList]"
-        class="example-list"
+        class="task-list"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="example-box" *ngFor="let item of pagedDone" cdkDrag>
+        <div class="task-box" *ngFor="let item of pagedDone" cdkDrag>
           <div class="task-title">
             <span>{{ item.titulo }}</span>
             <button mat-icon-button color="warn" (click)="deleteTask(item)">
