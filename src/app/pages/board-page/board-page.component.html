@@ -1,0 +1,97 @@
+<div class="board-container">
+  <div class="title-content">
+    <span>Board</span>
+    <button
+      mat-button
+      color="primary"
+      (click)="handleOpenDialog(dialogTemplate)"
+    >
+      ADICIONAR TAREFA
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="board-content">
+    <div class="example-container">
+      <span class="title pendente">Pendentes</span>
+
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        id="todoList"
+        [cdkDropListData]="tasks"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of pagedTasks" cdkDrag>
+          <div class="task-title">
+            <span>{{ item.titulo }}</span>
+            <button mat-icon-button color="warn" (click)="deleteTask(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <span>{{ item.descricao }}</span>
+        </div>
+      </div>
+      <mat-paginator
+        #tasksPaginator
+        [length]="tasks.length"
+        [pageSize]="pageSize"
+        (page)="onPageChange($event, tasks)"
+      ></mat-paginator>
+    </div>
+
+    <div class="example-container">
+      <span class="title concluida">Concluídas</span>
+
+      <div
+        cdkDropList
+        id="doneList"
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of pagedDone" cdkDrag>
+          <div class="task-title">
+            <span>{{ item.titulo }}</span>
+            <button mat-icon-button color="warn" (click)="deleteTask(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <span>{{ item.descricao }}</span>
+        </div>
+      </div>
+      <mat-paginator
+        #donePaginator
+        [length]="done.length"
+        [pageSize]="pageSize"
+        (page)="onPageChange($event, done)"
+      ></mat-paginator>
+    </div>
+  </div>
+</div>
+
+<ng-template #dialogTemplate>
+  <div class="dialog">
+    <span>Cadastrar nova tarefa:</span>
+    <form class="form" [formGroup]="taskForm" (ngSubmit)="createTask()">
+      <mat-form-field class="full-width">
+        <mat-label for="titulo">Título</mat-label>
+        <input matInput id="titulo" type="text" formControlName="titulo" required />
+        <mat-error *ngIf="taskForm.controls['titulo'].invalid && taskForm.controls['titulo'].touched">
+          Título é obrigatório.
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field class="full-width">
+        <mat-label for="descricao">Descrição</mat-label>
+        <input matInput id="descricao" type="text" formControlName="descricao" required />
+        <mat-error *ngIf="taskForm.controls['descricao'].invalid && taskForm.controls['descricao'].touched">
+          Descrição é obrigatória.
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</ng-template>
