@@ -38,3 +38,14 @@ $task-manager-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: "#FAFAFA"; }
 * { box-sizing: border-box;}
+
+::-webkit-scrollbar
+{
+	width: 6px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.32);
+}
